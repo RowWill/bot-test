@@ -1,6 +1,5 @@
 package uk.co.corasoftware.mongo;
 
-import java.io.IOException;
 import java.util.Collections;
 
 import org.slf4j.Logger;
@@ -21,16 +20,11 @@ public class MongoWrapper {
 	public boolean createNewUser(String username, String password) {
 		// @formatter:off
 		String connectionURL;
-		try {
-			connectionURL = MongoConnectionBuilder.builder()
-					.username(getProperty(Property.MONGODB_DATABASE_USERNAME))
-					.password(getProperty(Property.MONGODB_DATABASE_PASSWORD))
-					.address(getProperty(Property.MONGODB_DATABASE_ADDRESS))
-					.flatten().create();
-		} catch (IOException e) {
-			return false;
-		}
-		// @formatter:on
+		connectionURL = MongoConnectionBuilder.builder()
+				.username(getProperty(Property.MONGODB_DATABASE_USERNAME))
+				.password(getProperty(Property.MONGODB_DATABASE_PASSWORD))
+				.address(getProperty(Property.MONGODB_DATABASE_ADDRESS))
+				.flatten().create();
 
 		MongoClient client = new MongoClientImpl(
 				MongoClientSettings.builder().applyConnectionString(new ConnectionString(connectionURL)).build(), null);
@@ -72,7 +66,7 @@ public class MongoWrapper {
 		return db;
 	}
 
-	private String getProperty(String key) throws IOException {
+	private String getProperty(String key) {
 		return PropertiesLoader.getPropertyValue(key);
 	}
 }

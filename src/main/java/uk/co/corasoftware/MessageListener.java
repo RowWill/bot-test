@@ -59,6 +59,7 @@ public class MessageListener extends ListenerAdapter {
 				messageBuilder.clear();
 				userToReward = user;
 			} catch (IndexOutOfBoundsException ex) {
+				//Swallow
 			}
 		}
 

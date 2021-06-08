@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/*
+ * Implemented before spring-core was added.
+ * TODO switch to Spring
+ */
+
 public class PropertiesLoader {
 
 	private PropertiesLoader() {
@@ -22,7 +27,8 @@ public class PropertiesLoader {
 			if (inputStream != null) {
 				prop.load(inputStream);
 			} else {
-				throw new FileNotFoundException("Property file [" + propFileName + "] not found in classpath");
+				throw new FileNotFoundException(
+						String.format("Property file [%s] not found on classpath", propFileName));
 			}
 
 			return prop.getProperty(key);
